@@ -1,0 +1,12 @@
+<Solution>
+  <Project Path="Tournament.API/Tournament.API.csproj" Id="6f8174fa-e469-4a7b-b45d-71c507cac72d" />
+  <Project Path="Tournament.Application/Tournament.Application.csproj" Id="588c7548-12ff-4d4d-88e3-05fb5be5f8a6">
+    <Build Solution="Debug|*" Project="false" />
+  </Project>
+  <Project Path="Tournament.Domain/Tournament.Domain.csproj" Id="9b30d0ae-16d4-44fa-873e-d45b4aef2322">
+    <Build Solution="Debug|*" Project="false" />
+  </Project>
+  <Project Path="Tournament.Infrastructure/Tournament.Infrastructure.csproj" Id="db1b8d71-f45c-4f77-ab95-95aec6ea64db">
+    <Build Solution="Debug|*" Project="false" />
+  </Project>
+</Solution>

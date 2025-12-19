@@ -1,0 +1,6 @@
+@APITornoument_HostAddress = http://localhost:5238
+
+GET {{APITornoument_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
