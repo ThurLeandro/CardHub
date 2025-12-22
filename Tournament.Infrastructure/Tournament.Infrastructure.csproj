@@ -7,6 +7,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<None Include="Dockerfile.migrations" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\Tournament.Domain\Tournament.Domain.csproj" />
 		<ProjectReference Include="..\Tournament.Application\Tournament.Application.csproj" />
 	</ItemGroup>
