@@ -1,19 +1,21 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Numerics;
-using Tournament.Domain.Entities;
-
-public class TournamentDbContext : DbContext
+﻿namespace Tournament.Infrastructure.Persistence
 {
-    public TournamentDbContext(DbContextOptions<TournamentDbContext> options)
-        : base(options) { }
+    using Microsoft.EntityFrameworkCore;
+    using Tournament.Domain.Entities;
 
-    public DbSet<TournamentConf> Tournaments => Set<TournamentConf>();
-    public DbSet<Player> Players => Set<Player>();
-    public DbSet<TournamentPlayer> TournamentPlayers => Set<TournamentPlayer>();
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    public class TournamentDbContext : DbContext
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(TournamentDbContext).Assembly);
-        base.OnModelCreating(modelBuilder);
+        public TournamentDbContext(DbContextOptions<TournamentDbContext> options)
+            : base(options) { }
+
+        public DbSet<TournamentConf> Tournaments => Set<TournamentConf>();
+        public DbSet<Player> Players => Set<Player>();
+        public DbSet<TournamentPlayer> TournamentPlayers => Set<TournamentPlayer>();
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(TournamentDbContext).Assembly);
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

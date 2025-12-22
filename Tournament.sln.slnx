@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/docker-compose.yml/">
+    <File Path="docker-compose.yml" />
+  </Folder>
   <Project Path="Tournament.API/Tournament.API.csproj" Id="6f8174fa-e469-4a7b-b45d-71c507cac72d" />
   <Project Path="Tournament.Application/Tournament.Application.csproj" Id="588c7548-12ff-4d4d-88e3-05fb5be5f8a6">
     <Build Solution="Debug|*" Project="false" />
