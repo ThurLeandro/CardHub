@@ -1,11 +1,23 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using Microsoft.EntityFrameworkCore;
+using Tournament.Infrastructure.Persistence;
 
-// Controllers
+var builder = WebApplication.CreateBuilder(args);
+
 builder.Services.AddControllers();
 
-// Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<ITournamentRepository, TournamentRepository>();
+builder.Services.AddScoped<CreateTournamentHandler>();
+
+builder.Services.AddDbContext<TournamentDbContext>(options =>
+{
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("DefaultConnection")
+    );
+});
+
 
 var app = builder.Build();
 
