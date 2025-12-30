@@ -1,15 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Tournament.Application.Tournaments;
+namespace Tournament.API.Controllers;
+
 
 [ApiController]
 [Route("api/tournaments")]
-public class TournamentsController : ControllerBase
+public class TournamentsController(CreateTournamentHandler handler) : ControllerBase
 {
-    private readonly CreateTournamentHandler _handler;
-
-    public TournamentsController(CreateTournamentHandler handler)
-    {
-        _handler = handler;
-    }
+    private readonly CreateTournamentHandler _handler = handler;
 
     [HttpPost]
     public async Task<IActionResult> Create(CreateTournamentCommand command)
@@ -21,7 +19,6 @@ public class TournamentsController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        // depois a gente faz handler
         return Ok("Criado");
     }
 }

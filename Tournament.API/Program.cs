@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Tournament.Application.Tournaments;
 using Tournament.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);

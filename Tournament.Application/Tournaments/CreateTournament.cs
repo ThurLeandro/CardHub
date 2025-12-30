@@ -1,5 +1,5 @@
 ﻿using Tournament.Domain.Entities;
-
+namespace Tournament.Application.Tournaments;
 public record CreateTournamentCommand(
     string Name,
     Game Game,
