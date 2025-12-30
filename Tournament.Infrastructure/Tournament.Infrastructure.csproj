@@ -26,4 +26,9 @@
     <ProjectReference Include="..\Tournament.Domain\Tournament.Domain.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="Persistence\Mappings\" />
+  </ItemGroup>
+
 </Project>

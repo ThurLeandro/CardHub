@@ -12,7 +12,7 @@ using Tournament.Infrastructure.Persistence;
 namespace Tournament.Infrastructure.Migrations
 {
     [DbContext(typeof(TournamentDbContext))]
-    [Migration("20251220160539_InitialCreate")]
+    [Migration("20251230192648_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -63,7 +63,7 @@ namespace Tournament.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tournaments");
+                    b.ToTable("Tournaments", (string)null);
                 });
 
             modelBuilder.Entity("TournamentPlayer", b =>
@@ -88,7 +88,7 @@ namespace Tournament.Infrastructure.Migrations
 
                     b.HasKey("TournamentId", "PlayerId");
 
-                    b.ToTable("TournamentPlayers");
+                    b.ToTable("TournamentPlayers", (string)null);
                 });
 
             modelBuilder.Entity("TournamentPlayer", b =>

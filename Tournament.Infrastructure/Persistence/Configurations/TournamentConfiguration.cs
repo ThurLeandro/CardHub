@@ -15,10 +15,11 @@ public class TournamentConfConfiguration : IEntityTypeConfiguration<TournamentCo
             .HasMaxLength(200);
 
         builder.Property(x => x.Game)
+            .HasConversion<int>()
             .IsRequired();
 
         builder.Property(x => x.Status)
-            .HasConversion<int>() // IMPORTANTÍSSIMO
+            .HasConversion<int>()
             .IsRequired();
 
         builder.Property(x => x.TotalRounds)

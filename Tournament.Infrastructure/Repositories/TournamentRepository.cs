@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Tournament.Domain.Entities;
+using Tournament.Domain.Repositories;
 using Tournament.Infrastructure.Persistence;
 
 public class TournamentRepository : ITournamentRepository
@@ -14,6 +15,10 @@ public class TournamentRepository : ITournamentRepository
     public async Task AddAsync(TournamentConf tournament)
     {
         _context.Tournaments.Add(tournament);
+    }
+
+    public async Task SaveChangesAsync()
+    {
         await _context.SaveChangesAsync();
     }
 

@@ -1,7 +1,7 @@
 services:
   api:
    environment:
-    - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=tournament;Username=postgres;Password=postgres
+   - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=tournament;Username=postgres;Password=postgres
    build:
       context: .
       dockerfile: Tournament.API/Dockerfile
@@ -11,14 +11,18 @@ services:
       - "8080:8080"
 
   migrations:
-    build:
+   environment:
+    - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=tournament;Username=postgres;Password=postgres
+   build:
       context: .
       dockerfile: Tournament.Infrastructure/Dockerfile.migrations
-    depends_on:
+   depends_on:
       - db
-
   db:
     image: postgres:16
+    container_name: cardhub-db
+    ports:
+      - "5432:5432"
     environment:
       POSTGRES_DB: tournament
       POSTGRES_USER: postgres
