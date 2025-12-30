@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Tournament.Domain.Repositories;
 using Tournament.Application.Tournaments.Responses;
+using Tournament.Domain.Entities;
+using Tournament.Domain.Repositories;
 
 namespace Tournament.Application.Tournaments.GetAll;
 public class GetAllTournamentsHandler
@@ -14,10 +15,10 @@ public class GetAllTournamentsHandler
         _repository = repository;
     }
 
-    public async Task<TournamentResponse?> Handle()
+    public async Task<IReadOnlyList<TournamentConf>> Handle()
     {
-        var tournament = await _repository.GetAllAsync();
-        return tournament is null ? null : TournamentMapper.ToResponse((Domain.Entities.TournamentConf)tournament);
+        var tournaments = await _repository.GetAllAsync();
+        return tournaments;
     }
 }
 
