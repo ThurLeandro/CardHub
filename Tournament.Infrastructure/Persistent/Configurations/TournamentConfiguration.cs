@@ -6,22 +6,30 @@ public class TournamentConfConfiguration : IEntityTypeConfiguration<TournamentCo
 {
     public void Configure(EntityTypeBuilder<TournamentConf> builder)
     {
+        builder.ToTable("Tournaments");
+
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Name)
-               .IsRequired()
-               .HasMaxLength(200);
+            .IsRequired()
+            .HasMaxLength(200);
 
-        builder.Property(x => x.Game).IsRequired();
-        builder.Property(x => x.Status).IsRequired();
-        builder.Property(x => x.TotalRounds).IsRequired();
+        builder.Property(x => x.Game)
+            .IsRequired();
 
-        builder.HasMany(x => x.Players)
-               .WithOne()
-               .HasForeignKey(tp => tp.TournamentId);
+        builder.Property(x => x.Status)
+            .HasConversion<int>() // IMPORTANTÍSSIMO
+            .IsRequired();
 
-        builder.Metadata
-               .FindNavigation(nameof(TournamentConf.Players))!
-               .SetPropertyAccessMode(PropertyAccessMode.Field);
+        builder.Property(x => x.TotalRounds)
+            .IsRequired();
+
+        builder
+            .HasMany(x => x.Players)
+            .WithOne()
+            .HasForeignKey(tp => tp.TournamentId);
+
+        builder.Navigation(x => x.Players)
+            .UsePropertyAccessMode(PropertyAccessMode.Field);
     }
 }

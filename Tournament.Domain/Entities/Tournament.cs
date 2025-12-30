@@ -13,6 +13,7 @@ public class TournamentConf
 
     private TournamentConf() { }
 
+
     public TournamentConf(string name, Game game, int totalRounds)
     {
         Id = Guid.NewGuid();
@@ -20,8 +21,30 @@ public class TournamentConf
         Game = game;
         TotalRounds = totalRounds;
         Status = TournamentStatus.Draft;
+
+        if (string.IsNullOrWhiteSpace(name))
+            throw new DomainException("Nome do torneio é obrigatório");
+
+        if (totalRounds <= 0)
+            throw new DomainException("Total de rodadas inválido");
     }
 
     public void Start() => Status = TournamentStatus.Ongoing;
     public void Finish() => Status = TournamentStatus.Finished;
+}
+
+[Serializable]
+internal class DomainException : Exception
+{
+    public DomainException()
+    {
+    }
+
+    public DomainException(string? message) : base(message)
+    {
+    }
+
+    public DomainException(string? message, Exception? innerException) : base(message, innerException)
+    {
+    }
 }

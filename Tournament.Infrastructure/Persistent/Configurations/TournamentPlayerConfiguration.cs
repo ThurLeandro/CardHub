@@ -2,16 +2,24 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Tournament.Domain.Entities;
 
-public class TournamentPlayerConfiguration
-    : IEntityTypeConfiguration<TournamentPlayer>
+public class TournamentPlayerConfiguration : IEntityTypeConfiguration<TournamentPlayer>
 {
     public void Configure(EntityTypeBuilder<TournamentPlayer> builder)
     {
-        builder.HasKey(tp => new { tp.TournamentId, tp.PlayerId });
+        builder.ToTable("TournamentPlayers");
 
-        builder.Property(tp => tp.Points).IsRequired();
-        builder.Property(tp => tp.Wins).IsRequired();
-        builder.Property(tp => tp.Losses).IsRequired();
-        builder.Property(tp => tp.Draws).IsRequired();
+        builder.HasKey(x => new { x.TournamentId, x.PlayerId });
+
+        builder.Property(x => x.Points)
+            .IsRequired();
+
+        builder.Property(x => x.Wins)
+            .IsRequired();
+
+        builder.Property(x => x.Losses)
+            .IsRequired();
+
+        builder.Property(x => x.Draws)
+            .IsRequired();
     }
 }

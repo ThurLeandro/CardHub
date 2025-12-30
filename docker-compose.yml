@@ -1,11 +1,13 @@
 services:
   api:
-    build:
+   environment:
+    - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=tournament;Username=postgres;Password=postgres
+   build:
       context: .
       dockerfile: Tournament.API/Dockerfile
-    depends_on:
+   depends_on:
       - db
-    ports:
+   ports:
       - "8080:8080"
 
   migrations:
