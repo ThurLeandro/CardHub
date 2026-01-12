@@ -26,9 +26,18 @@ public class TournamentsController(
     [HttpGet]
     public async Task<IActionResult> GetAll(
     [FromQuery] int page = 1,
-    [FromQuery] int pageSize = 10)
+    [FromQuery] int pageSize = 10,
+    [FromQuery] Game? game = null,
+    [FromQuery] TournamentStatus? status = null,
+    [FromQuery] string? orderBy = null)
     {
-        var result = await getAllHandler.Handle(page, pageSize);
+        var result = await getAllHandler.Handle(
+        page,
+        pageSize,
+        game,
+        status,
+        orderBy
+    );
 
         return Ok(ApiResponse<PagedResponse<TournamentResponse>>.Ok(result));
     }
