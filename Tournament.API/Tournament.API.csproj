@@ -20,9 +20,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Tournament.Application\Tournament.Application.csproj" />
-    <ProjectReference Include="..\Tournament.Infrastructure\Tournament.Infrastructure.csproj" />
-  </ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Tournament.Application\Tournament.Application.csproj" />
+	  <ProjectReference Include="..\Tournament.Infrastructure\Tournament.Infrastructure.csproj" />
+	</ItemGroup>
 
 </Project>

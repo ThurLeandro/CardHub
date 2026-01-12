@@ -1,10 +1,6 @@
 ﻿using Tournament.Domain.Entities;
-
-public record CreateTournamentCommand(
-    string Name,
-    Game Game,
-    int TotalRounds
-);
+using Tournament.Domain.Repositories;
+namespace Tournament.Application.Tournaments.Create;
 
 public class CreateTournamentHandler
 {
@@ -15,7 +11,7 @@ public class CreateTournamentHandler
         _repository = repository;
     }
 
-    public async Task<Guid> Handle(CreateTournamentCommand command)
+    public async Task<TournamentConf> Handle(CreateTournamentCommand command)
     {
         var tournament = new TournamentConf(
             command.Name,
@@ -24,7 +20,7 @@ public class CreateTournamentHandler
         );
 
         await _repository.AddAsync(tournament);
-        return tournament.Id;
+        await _repository.SaveChangesAsync();
+        return tournament;
     }
 }
-
