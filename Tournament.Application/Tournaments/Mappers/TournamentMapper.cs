@@ -13,4 +13,9 @@ public static class TournamentMapper
             tournament.TotalRounds
         );
     }
+    public static IEnumerable<TournamentResponse> ToResponse(
+        IEnumerable<TournamentConf> tournaments)
+    {
+        return tournaments.Select(ToResponse);
+    }
 }
