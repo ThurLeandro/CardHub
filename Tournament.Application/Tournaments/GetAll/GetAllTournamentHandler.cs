@@ -1,6 +1,8 @@
-﻿using System.Net.NetworkInformation;
+﻿using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Tournament.Application.Common;
 using Tournament.Application.Tournaments.Responses;
+using Tournament.Domain.Entities;
 using Tournament.Domain.Repositories;
 
 namespace Tournament.Application.Tournaments.GetAll;
@@ -20,37 +22,32 @@ public class GetAllTournamentsHandler
         Game? game = null,
         TournamentStatus? status = null,
         string? orderBy = null)
-
     {
-        var tournaments = await _repository.GetAllAsync();
-
-        tournaments = orderBy?.ToLower() switch
-        {
-            "name" => tournaments.OrderBy(t => t.Name).ToList(),
-            "name_desc" => tournaments.OrderByDescending(t => t.Name).ToList(),
-
-            "game" => tournaments.OrderBy(t => t.Game).ToList(),
-            "game_desc" => tournaments.OrderByDescending(t => t.Game).ToList(),
-
-            "status" => tournaments.OrderBy(t => t.Status).ToList(),
-            "status_desc" => tournaments.OrderByDescending(t => t.Status).ToList(),
-
-            _ => tournaments.OrderBy(t => t.Name).ToList()
-        };
+        var query = _repository.Query();
 
         if (game.HasValue)
-            tournaments = tournaments
-                .Where(t => t.Game == game.Value)
-                .ToList();
+            query = query.Where(t => t.Game == game.Value);
 
         if (status.HasValue)
-            tournaments = tournaments
-                .Where(t => t.Status == status.Value)
-                .ToList();
+            query = query.Where(t => t.Status == status.Value);
 
-        var totalItems = tournaments.Count;
+        query = (orderBy ?? "name").ToLower() switch
+        {
+            "name" => query.OrderBy(t => t.Name),
+            "name_desc" => query.OrderByDescending(t => t.Name),
 
-        var items = tournaments
+            "game" => query.OrderBy(t => t.Game),
+            "game_desc" => query.OrderByDescending(t => t.Game),
+
+            "status" => query.OrderBy(t => t.Status),
+            "status_desc" => query.OrderByDescending(t => t.Status),
+
+            _ => query.OrderBy(t => t.Name)
+        };
+
+        var totalItems = await query.CountAsync();
+
+        var items = await query
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .Select(t => new TournamentResponse(
@@ -60,7 +57,7 @@ public class GetAllTournamentsHandler
                 t.Status,
                 t.TotalRounds
             ))
-            .ToList();
+            .ToListAsync();
 
         return PagedResponse<TournamentResponse>.Create(
             items,

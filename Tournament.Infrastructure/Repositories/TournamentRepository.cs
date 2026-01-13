@@ -12,6 +12,9 @@ public class TournamentRepository : ITournamentRepository
         _context = context;
     }
 
+    public IQueryable<TournamentConf> Query()
+        => _context.Tournaments.AsNoTracking();
+
     public async Task AddAsync(TournamentConf tournament)
     {
         _context.Tournaments.Add(tournament);
@@ -21,9 +24,6 @@ public class TournamentRepository : ITournamentRepository
     {
         await _context.SaveChangesAsync();
     }
-
-    public async Task<IReadOnlyList<TournamentConf>> GetAllAsync()
-        => await _context.Tournaments.ToListAsync();
 
     public async Task<TournamentConf?> GetByIdAsync(Guid id)
         => await _context.Tournaments.FindAsync(id);
